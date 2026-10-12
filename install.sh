@@ -37,7 +37,7 @@ if [ -f /www/server/panel/data/port.pl ]; then
   DEFAULT_URL="$SCHEME://127.0.0.1:$PORT"
 fi
 
-if ! command -v claude >/dev/null || [ ! -r /dev/tty ]; then
+if ! command -v claude >/dev/null || ! { : </dev/tty; } 2>/dev/null; then
   cat <<EOF
 
 Register it with Claude Code yourself (put your own values):
