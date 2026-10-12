@@ -1,6 +1,31 @@
 # aaPanel MCP Server
 
-MCP server này cho phép Claude (Claude Code, Claude Desktop) quản trị máy chủ aaPanel thông qua API của panel. Server chạy trên máy tính của bạn qua stdio, và chỉ panel được nhận API key.
+MCP server này cho phép Claude (Claude Code, Claude Desktop) quản trị máy chủ aaPanel thông qua API của panel. Server chạy cùng máy với Claude qua stdio. API key chỉ được dùng để ký request gửi tới panel của bạn.
+
+## Cài đặt nhanh
+
+Đầu tiên, bật API trong **aaPanel → Settings → API interface**: bật API, copy API key, rồi thêm IP sẽ gọi panel vào whitelist. Nếu Claude chạy ngay trên server thì IP đó là `127.0.0.1`.
+
+**Cách 1: Claude Code chạy trên chính server aaPanel (Linux).** Chạy một lệnh:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/dhtoan/aapanel-mcp/main/install.sh | bash
+```
+
+Script sẽ:
+- tải mã nguồn và build vào `~/.aapanel-mcp`;
+- tự dò cổng của panel;
+- hỏi API key (không hiện ra khi gõ);
+- hỏi có cho phép ghi và chạy shell không;
+- đăng ký server với Claude Code.
+
+**Cách 2: Claude Code chạy trên máy tính của bạn (Windows/macOS/Linux, cần Node.js 20+).** Chạy một lệnh, thay giá trị bằng thông tin panel của bạn:
+
+```bash
+claude mcp add aapanel --scope user -e AAPANEL_URL=https://YOUR_SERVER_IP:PANEL_PORT -e AAPANEL_API_KEY=YOUR_API_KEY -e AAPANEL_INSECURE_TLS=1 -- npx -y github:dhtoan/aapanel-mcp
+```
+
+Muốn cho phép thay đổi dữ liệu thì thêm `-e AAPANEL_ALLOW_WRITE=1`. Muốn cho phép chạy lệnh shell với quyền root thì thêm `-e AAPANEL_ALLOW_SHELL=1`. Sau đó mở phiên Claude Code mới và hỏi: *"Server của tôi đang thế nào?"*
 
 ## Công cụ
 
