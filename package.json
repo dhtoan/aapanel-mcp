@@ -6,7 +6,7 @@
   "scripts": {
     "build": "tsc",
     "start": "node dist/index.js",
-    "test": "node test/run.mjs",
+    "test": "tsc && node test/run.mjs",
     "prepare": "tsc"
   },
   "license": "MIT",
